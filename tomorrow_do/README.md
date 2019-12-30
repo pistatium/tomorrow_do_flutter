@@ -1,4 +1,4 @@
-# tomorrow_do
+# tomorrow_do_flutter
 
 A new Flutter project.
 
