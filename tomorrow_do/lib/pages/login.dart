@@ -33,21 +33,12 @@ class _LoginPageState extends State<LoginPage> {
   Widget _showBody() {
     return Center(
       child: Form(
-        child: _showLoginButton(),
+        child: _showStartButton(),
       ),
     );
   }
-
-  Widget _showIcon() {
-    return Center(
-      child: Image.asset(
-        'assets/flutter.png',
-        width: 100.0,
-      ),
-    );
-  }
-
-  Widget _showLoginButton() {
+  
+  Widget _showStartButton() {
     return Center(
         child: RaisedButton(
       child: const Text('Start'),
