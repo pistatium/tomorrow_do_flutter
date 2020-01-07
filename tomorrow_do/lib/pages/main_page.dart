@@ -10,8 +10,10 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin{
   int _counter = 0;
+  TabController _tabController;
+
 
   void _incrementCounter() {
     setState(() {
