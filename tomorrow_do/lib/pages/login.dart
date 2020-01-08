@@ -21,34 +21,39 @@ class _LoginPageState extends State<LoginPage> {
     return result.user;
   }
 
+  Future<bool> _checkIsLoggedIn() async {
+    final FirebaseUser user = await _firebaseAuth.currentUser();
+    if (user != null) {
+      Navigator.pushReplacementNamed(context, '/main');
+      return true;
+    }
+    return false;
+  }
+
   Widget _showBody() {
     return Center(
       child: Form(
-        child: _showLoginButton(),
+        child: _showStartButton(),
       ),
     );
   }
-
-  Widget _showIcon() {
-    return Center(
-      child: Image.asset(
-        'assets/flutter.png',
-        width: 100.0,
-      ),
-    );
-  }
-
-  Widget _showLoginButton() {
+  
+  Widget _showStartButton() {
     return Center(
         child: RaisedButton(
-          child: const Text('Start'),
-          onPressed: () {
-            return _signIn()
-                .then((FirebaseUser user) => print(user))
-                .catchError((e) => print(e));
-          },
-        )
-    );
+      child: const Text('Start'),
+      onPressed: () {
+        return _signIn()
+            .then((FirebaseUser user) => print(user))
+            .catchError((e) => print(e));
+      },
+    ));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _checkIsLoggedIn().then((v) => print(v));
   }
 
   @override

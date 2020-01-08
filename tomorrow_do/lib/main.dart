@@ -15,14 +15,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: '明日から本気だす',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
+
       ),
       home: LoginPage(),
       routes: <String, WidgetBuilder> {
         '/login': (BuildContext context) => new LoginPage(),
-        '/main': (BuildContext context) => MainPage(title: 'title')
+        '/main': (BuildContext context) => MainPage(title: '明日から本気だす')
       },
     );
   }
