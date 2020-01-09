@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title}) : super(key: key);
-  
+
   final String title;
 
   @override
@@ -14,6 +14,20 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
   int _counter = 0;
   TabController _tabController;
 
+  final List<Tab> tabs = <Tab>[
+    Tab(
+      text: 'おわった',
+    ),
+    Tab(
+      text: "今日やる",
+    ),
+    Tab(
+      text: "明日やる",
+    ),
+    Tab(
+      text: "いつかやる",
+    )
+  ];
 
   void _incrementCounter() {
     setState(() {

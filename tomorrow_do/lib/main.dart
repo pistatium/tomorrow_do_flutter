@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       title: '明日から本気だす',
       theme: ThemeData(
         primarySwatch: Colors.grey,
+
       ),
       home: LoginPage(),
       routes: <String, WidgetBuilder> {
