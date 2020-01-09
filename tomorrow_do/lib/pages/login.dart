@@ -31,13 +31,17 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _showBody() {
-    return Center(
-      child: Form(
-        child: _showStartButton(),
-      ),
+    return Column(
+      children: <Widget>[
+        Text('利用規約'),
+        Text('同意して開始'),
+        Form(
+          child: _showStartButton(),
+        ),
+      ],
     );
   }
-  
+
   Widget _showStartButton() {
     return Center(
         child: RaisedButton(
@@ -59,6 +63,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('ご利用の前に')
+      ),
       body: _showBody(),
     );
   }
