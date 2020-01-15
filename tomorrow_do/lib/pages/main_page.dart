@@ -58,22 +58,13 @@ class _MainPageState extends State<MainPage>
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
-          children: <Widget>[
-            TabBarView(
-              controller: _tabController,
-              children: tabs.map((tab) {
-                return _createTab(tab);
-              }).toList(),
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
+        child: TabBarView(
+          controller: _tabController,
+          children: tabs.map((tab) {
+            return _createTab(tab);
+          }).toList(),
         ),
       ),
-
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
@@ -83,8 +74,8 @@ class _MainPageState extends State<MainPage>
   }
 
   Widget _createTab(Tab tab) {
-    return Center(
-      child: Text("test"),
+    return Container(
+      child: Text(tab.text),
     );
   }
 }
