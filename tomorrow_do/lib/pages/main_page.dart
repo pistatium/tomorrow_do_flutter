@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
+final String todoDocumentName = 'todo_test';
+
+
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title}) : super(key: key);
 
@@ -76,7 +80,7 @@ class _MainPageState extends State<MainPage>
 
   Widget _createTab(Tab tab) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('test').snapshots(),
+      stream: Firestore.instance.collection(todoDocumentName).snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
         switch (snapshot.connectionState) {
