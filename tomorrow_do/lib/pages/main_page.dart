@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:flamingo/flamingo.dart';
 
 final String todoDocumentName = 'todo_test';
 
@@ -23,6 +23,9 @@ class _MainPageState extends State<MainPage>
   @override
   void initState() {
     super.initState();
+    final firestore = Firestore.instance;
+    final root = firestore.collection(todoDocumentName).document('1').collection('todos');
+    Flamingo.configure(firestore: firestore, storage: FirebaseStorage.instance, root: root);
     _tabController = TabController(length: tabs.length, vsync: this);
   }
 
@@ -42,9 +45,7 @@ class _MainPageState extends State<MainPage>
   ];
 
   void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+    
   }
 
   @override
