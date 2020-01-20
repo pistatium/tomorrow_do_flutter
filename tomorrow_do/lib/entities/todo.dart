@@ -1,7 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flamingo/flamingo.dart';
-
-
 enum TodoStatus {
   Done,
   TodayDo,
@@ -10,7 +6,7 @@ enum TodoStatus {
   Deleted,
 }
 
-class Todo extends Document<Todo>{
+class Todo {
   String userId;
   String title;
   String memo;
@@ -19,4 +15,15 @@ class Todo extends Document<Todo>{
   DateTime createdAt;
   DateTime updatedAt;
   DateTime deadlineAt;
+
+  Todo(String userId, String title, String memo, int priority, TodoStatus status, DateTime deadlineAt) {
+    this.userId = userId;
+    this.title = title;
+    this.memo = memo;
+    this.priority = priority;
+    this.status = status;
+    this.createdAt = DateTime.now();
+    this.updatedAt = DateTime.now();
+    this.deadlineAt = deadlineAt;
+  }
 }
