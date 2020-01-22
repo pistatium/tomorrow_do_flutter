@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:tomorrow_do_flutter/entities/todo.dart';
 
 class FirestoreTodoField {
@@ -25,6 +27,21 @@ Map<String, dynamic> todoToFirestoreMap(Todo todo) {
 }
 
 Todo todoFromFirestoreMap(Map<String, dynamic> map) {
-  // FIXME
-  return Todo();
+  return Todo(
+    userId: map[FirestoreTodoField.userId],
+    title: map[FirestoreTodoField.title],
+    memo: map[FirestoreTodoField.memo],
+    priority: map[FirestoreTodoField.priority],
+    status: TodoStatus.values.firstWhere((e) => e.toString() == map[FirestoreTodoField.status]),
+    createdAt: _dt(map[FirestoreTodoField.createdAt]),
+    updatedAt: _dt(map[FirestoreTodoField.updatedAt]),
+    deadlineAt: _dt(map[FirestoreTodoField.deadlineAt]),
+  );
+}
+
+DateTime _dt(Timestamp timestamp) {
+  if (timestamp == null) {
+    return null;
+  }
+  return DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch);
 }
