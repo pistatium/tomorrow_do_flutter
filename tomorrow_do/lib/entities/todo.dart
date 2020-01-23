@@ -6,6 +6,29 @@ enum TodoStatus {
   Deleted,
 }
 
+TodoStatus newTodoStatus(String status) {
+  switch (status) {
+    case "done": return TodoStatus.Done;
+    case "today_do": return TodoStatus.TodayDo;
+    case "tomorrow_do": return TodoStatus.TomorrowDo;
+    case "someday_do": return TodoStatus.SomedayDo;
+    case "deleted": return TodoStatus.Deleted;
+  }
+  return null;
+}
+
+String statusToString(TodoStatus status) {
+  switch (status) {
+    case TodoStatus.Done: return "done";
+    case TodoStatus.TodayDo: return "today_do";
+    case TodoStatus.TomorrowDo: return "tomorrow_do";
+    case TodoStatus.SomedayDo: return "someday_do";
+    case TodoStatus.Deleted: return "deleted";
+  }
+  return "";
+}
+
+
 class Todo {
   String userId;
   String title;
