@@ -32,19 +32,19 @@ class _MainPageState extends State<MainPage>
 
   final List<Tab> tabs = <Tab>[
     Tab(
-      key: Key(TodoStatus.Done.toString()),
+      key: Key(statusToString(TodoStatus.Done)),
       text: 'おわった',
     ),
     Tab(
-      key: Key(TodoStatus.TodayDo.toString()),
+      key: Key(statusToString(TodoStatus.TodayDo)),
       text: "今日やる",
     ),
     Tab(
-      key: Key(TodoStatus.TomorrowDo.toString()),
+      key: Key(statusToString(TodoStatus.TomorrowDo)),
       text: "明日やる",
     ),
     Tab(
-      key: Key(TodoStatus.SomedayDo.toString()),
+      key: Key(statusToString(TodoStatus.SomedayDo)),
       text: "いつかやる",
     )
   ];
