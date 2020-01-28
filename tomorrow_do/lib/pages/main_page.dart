@@ -90,9 +90,7 @@ class _MainPageState extends State<MainPage>
   }
 
   Widget _createTab(Tab tab) {
-    print(Key(TodoStatus.Done.toString()));
-    print(TodoStatus.Done.toString());
-    print(tab.key);
+    print(tab.key.toString());
     return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance.collection(todoDocumentName)
           .where(FirestoreTodoField.status, isEqualTo: tab.key.toString()).snapshots(),
