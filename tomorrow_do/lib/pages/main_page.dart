@@ -4,9 +4,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tomorrow_do_flutter/converters/todo_converters.dart';
 import 'package:tomorrow_do_flutter/entities/todo.dart';
 
-
 final String todoDocumentName = 'todo_test';
 
+class TabData {
+  String label;
+  String firestoreKey;
+
+  TabData({this.label, this.firestoreKey});
+}
+
+final List<TabData> tabDataList = [
+  TabData(label: "終わった", firestoreKey: statusToString(TodoStatus.Done)),
+  TabData(label: "今日やる", firestoreKey: statusToString(TodoStatus.TodayDo)),
+  TabData(label: "明日やる", firestoreKey: statusToString(TodoStatus.TomorrowDo)),
+  TabData(label: "いつかやる", firestoreKey: statusToString(TodoStatus.SomedayDo)),
+];
 
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title}) : super(key: key);
@@ -26,33 +38,19 @@ class _MainPageState extends State<MainPage>
   void initState() {
     super.initState();
     final firestore = Firestore.instance;
-    final root = firestore.collection(todoDocumentName).document('1').collection('todos');
+    final root = firestore
+        .collection(todoDocumentName)
+        .document('1')
+        .collection('todos');
     _tabController = TabController(length: tabs.length, vsync: this);
   }
 
-  final List<Tab> tabs = <Tab>[
-    Tab(
-      key: Key(statusToString(TodoStatus.Done)),
-      text: 'おわった',
-    ),
-    Tab(
-      key: Key(statusToString(TodoStatus.TodayDo)),
-      text: "今日やる",
-    ),
-    Tab(
-      key: Key(statusToString(TodoStatus.TomorrowDo)),
-      text: "明日やる",
-    ),
-    Tab(
-      key: Key(statusToString(TodoStatus.SomedayDo)),
-      text: "いつかやる",
-    )
-  ];
+  final List<Tab> tabs = tabDataList.map((t) => Tab(key: Key(t.firestoreKey), text: t.label));
 
   void _createTodo() {
     var todo = Todo.create("userId", "test", "", 1, TodoStatus.TodayDo, null);
     final newDocument =
-    Firestore.instance.collection(todoDocumentName).document();
+        Firestore.instance.collection(todoDocumentName).document();
     newDocument.setData(todoToFirestoreMap(todo));
   }
 
@@ -78,7 +76,6 @@ class _MainPageState extends State<MainPage>
           children: tabs.map((tab) {
             return _createTab(tab);
           }).toList(),
-
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -92,8 +89,10 @@ class _MainPageState extends State<MainPage>
   Widget _createTab(Tab tab) {
     print(tab.key.toString());
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection(todoDocumentName)
-          .where(FirestoreTodoField.status, isEqualTo: tab.key.toString()).snapshots(),
+      stream: Firestore.instance
+          .collection(todoDocumentName)
+          .where(FirestoreTodoField.status, isEqualTo: tab.key.toString())
+          .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
         switch (snapshot.connectionState) {
@@ -103,7 +102,7 @@ class _MainPageState extends State<MainPage>
             return new ListView(
               children:
                   snapshot.data.documents.map((DocumentSnapshot document) {
-                    var todo = todoFromFirestoreMap(document.data);
+                var todo = todoFromFirestoreMap(document.data);
                 return new ListTile(
                   title: new Text(todo.title),
                   subtitle: new Text(todo.memo),
