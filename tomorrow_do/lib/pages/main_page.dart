@@ -8,16 +8,16 @@ final String todoDocumentName = 'todo_test';
 
 class TabData {
   String label;
-  String firestoreKey;
+  TodoStatus status;
 
-  TabData({this.label, this.firestoreKey});
+  TabData({this.label, this.status});
 }
 
 final List<TabData> tabDataList = [
-  TabData(label: "終わった", firestoreKey: statusToString(TodoStatus.Done)),
-  TabData(label: "今日やる", firestoreKey: statusToString(TodoStatus.TodayDo)),
-  TabData(label: "明日やる", firestoreKey: statusToString(TodoStatus.TomorrowDo)),
-  TabData(label: "いつかやる", firestoreKey: statusToString(TodoStatus.SomedayDo)),
+  TabData(label: "終わった", status: TodoStatus.Done),
+  TabData(label: "今日やる", status: TodoStatus.TodayDo),
+  TabData(label: "明日やる", status: TodoStatus.TomorrowDo),
+  TabData(label: "いつかやる", status:TodoStatus.SomedayDo),
 ];
 
 class MainPage extends StatefulWidget {
@@ -45,7 +45,7 @@ class _MainPageState extends State<MainPage>
     _tabController = TabController(length: tabs.length, vsync: this);
   }
 
-  final List<Tab> tabs = tabDataList.map((t) => Tab(key: Key(t.firestoreKey), text: t.label));
+  final List<Tab> tabs = tabDataList.map((t) => Tab(key: Key(statusToString(t.status)), text: t.label));
 
   void _createTodo() {
     var todo = Todo.create("userId", "test", "", 1, TodoStatus.TodayDo, null);
@@ -73,9 +73,9 @@ class _MainPageState extends State<MainPage>
         // in the middle of the parent.
         child: TabBarView(
           controller: _tabController,
-          children: tabs.map((tab) {
-            return _createTab(tab);
-          }).toList(),
+          children: tabs.asMap().map((i, tab) {
+            return MapEntry(i, _createTab(tab));
+          }).values.toList(),
         ),
       ),
       floatingActionButton: FloatingActionButton(
