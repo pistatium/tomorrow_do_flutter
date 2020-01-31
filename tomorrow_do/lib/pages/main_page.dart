@@ -73,9 +73,7 @@ class _MainPageState extends State<MainPage>
         // in the middle of the parent.
         child: TabBarView(
           controller: _tabController,
-          children: tabs.asMap().map((i, tab) {
-            return MapEntry(i, _createTab(tab));
-          }).values.toList(),
+          children: tabDataList.map((t) => _createTab(t))
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -86,12 +84,11 @@ class _MainPageState extends State<MainPage>
     );
   }
 
-  Widget _createTab(Tab tab) {
-    print(tab.key.toString());
+  Widget _createTab(TabData tabData) {
     return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance
           .collection(todoDocumentName)
-          .where(FirestoreTodoField.status, isEqualTo: tab.key.toString())
+          .where(FirestoreTodoField.status, isEqualTo: statusToString(tabData.status))
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
