@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -38,17 +39,15 @@ class _MainPageState extends State<MainPage>
   void initState() {
     super.initState();
     final firestore = Firestore.instance;
-    final root = firestore
-        .collection(todoDocumentName)
-        .document('1')
-        .collection('todos');
     _tabController = TabController(length: tabs.length, vsync: this);
   }
 
   final List<Tab> tabs = tabDataList.map((t) => Tab(key: Key(statusToString(t.status)), text: t.label));
 
-  void _createTodo() {
-    var todo = Todo.create("userId", "test", "", 1, TodoStatus.TodayDo, null);
+  void _createTodo() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    var user = await _auth.currentUser();
+    var todo = Todo.create(user.uid, "test", "", 1, TodoStatus.TodayDo, null);
     final newDocument =
         Firestore.instance.collection(todoDocumentName).document();
     newDocument.setData(todoToFirestoreMap(todo));
@@ -62,7 +61,6 @@ class _MainPageState extends State<MainPage>
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
         bottom: TabBar(
-//          isScrollable: true,
           tabs: tabs,
           controller: _tabController,
           isScrollable: true,
@@ -78,7 +76,7 @@ class _MainPageState extends State<MainPage>
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _createTodo,
-        tooltip: 'Increment',
+        tooltip: 'Create',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
