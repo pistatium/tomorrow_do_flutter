@@ -39,10 +39,8 @@ class _MainPageState extends State<MainPage>
   void initState() {
     super.initState();
     final firestore = Firestore.instance;
-    _tabController = TabController(length: tabs.length, vsync: this);
+    _tabController = TabController(length: tabDataList.length, vsync: this);
   }
-
-  final List<Tab> tabs = tabDataList.map((t) => Tab(key: Key(statusToString(t.status)), text: t.label));
 
   void _createTodo() async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -61,7 +59,7 @@ class _MainPageState extends State<MainPage>
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
         bottom: TabBar(
-          tabs: tabs,
+          tabs: tabDataList.map((t) => Tab(text: t.label)) as List<Tab>,
           controller: _tabController,
           isScrollable: true,
         ),
