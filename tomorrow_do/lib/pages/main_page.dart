@@ -59,7 +59,7 @@ class _MainPageState extends State<MainPage>
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
         bottom: TabBar(
-          tabs: tabDataList.map((t) => Tab(text: t.label)) as List<Tab>,
+          tabs: tabDataList.map((t) => Tab(text: t.label, key: Key(statusToString(t.status)),)) as List<Tab>,
           controller: _tabController,
           isScrollable: true,
         ),
