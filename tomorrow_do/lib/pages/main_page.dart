@@ -32,13 +32,11 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
-  int _counter = 0;
   TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    final firestore = Firestore.instance;
     _tabController = TabController(length: tabDataList.length, vsync: this);
   }
 
