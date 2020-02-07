@@ -18,11 +18,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      //home: LoginPage(),
-//      routes: <String, WidgetBuilder>{
-////        '/login': (BuildContext context) => new LoginPage(),
-////        '/main': (BuildContext context) => MainPage(title: '明日から本気だす')
-//      },
+      home: LoginPage(),
+      routes: <String, WidgetBuilder>{
+        '/login': (BuildContext context) => new LoginPage(),
+        '/main': (BuildContext context) => MainPage(title: '明日から本気だす')
+      },
     );
   }
 }
