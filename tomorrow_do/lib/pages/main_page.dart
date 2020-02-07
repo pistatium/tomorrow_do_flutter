@@ -18,7 +18,7 @@ final List<TabData> tabDataList = [
   TabData(label: "終わった", status: TodoStatus.Done),
   TabData(label: "今日やる", status: TodoStatus.TodayDo),
   TabData(label: "明日やる", status: TodoStatus.TomorrowDo),
-  TabData(label: "いつかやる", status:TodoStatus.SomedayDo),
+  TabData(label: "いつかやる", status: TodoStatus.SomedayDo),
 ];
 
 class MainPage extends StatefulWidget {
@@ -37,7 +37,8 @@ class _MainPageState extends State<MainPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: tabDataList.length, vsync: this);
+    _tabController =
+        TabController(length: tabDataList.length, vsync: this, initialIndex: 1);
   }
 
   void _createTodo() async {
@@ -53,37 +54,42 @@ class _MainPageState extends State<MainPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
         bottom: TabBar(
-          tabs: tabDataList.map((t) => Tab(text: t.label, key: Key(statusToString(t.status)),)).toList(),
+          unselectedLabelColor: Color.fromARGB(255, 1, 1, 1),
+          labelColor: Color.fromARGB(255, 255, 255, 255),
+          indicatorPadding: EdgeInsets.only(left: 18.0),
+          tabs: tabDataList
+              .map((t) => new Container(
+                    child: Tab(
+                      text: t.label,
+                      key: Key(statusToString(t.status)),
+                    ),
+                  ))
+              .toList(),
           controller: _tabController,
           isScrollable: true,
         ),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: TabBarView(
-          controller: _tabController,
-          children: tabDataList.map((t) => _createTab(t)).toList()
-        ),
+            controller: _tabController,
+            children: tabDataList.map((t) => _createTab(t)).toList()),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _createTodo,
         tooltip: 'Create',
         child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
-
   }
+
   Widget _createTab(TabData tabData) {
     return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance
           .collection(todoDocumentName)
-          .where(
-          FirestoreTodoField.status, isEqualTo: statusToString(tabData.status))
+          .where(FirestoreTodoField.status,
+              isEqualTo: statusToString(tabData.status))
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
@@ -93,7 +99,7 @@ class _MainPageState extends State<MainPage>
           default:
             return new ListView(
               children:
-              snapshot.data.documents.map((DocumentSnapshot document) {
+                  snapshot.data.documents.map((DocumentSnapshot document) {
                 var todo = todoFromFirestoreMap(document.data);
                 return new ListTile(
                   title: new Text(todo.title),
