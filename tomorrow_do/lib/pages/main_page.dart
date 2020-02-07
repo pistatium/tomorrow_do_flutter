@@ -22,7 +22,7 @@ final List<TabData> tabDataList = [
 ];
 
 class MainPage extends StatefulWidget {
-  MainPage({Key key, this.title}) : super(key: key);
+  MainPage({this.title});
 
   final String title;
 
@@ -37,7 +37,7 @@ class _MainPageState extends State<MainPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: tabDataList.length, vsync: this);
+    //_tabController = TabController(length: tabDataList.length, vsync: this);
   }
 
   void _createTodo() async {
@@ -56,25 +56,25 @@ class _MainPageState extends State<MainPage>
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
-        bottom: TabBar(
-          tabs: tabDataList.map((t) => Tab(text: t.label, key: Key(statusToString(t.status)),)) as List<Tab>,
-          controller: _tabController,
-          isScrollable: true,
-        ),
+//        bottom: TabBar(
+//          tabs: tabDataList.map((t) => Tab(text: t.label, key: Key(statusToString(t.status)),)) as List<Tab>,
+//          controller: _tabController,
+//          isScrollable: true,
+//        ),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: TabBarView(
-          controller: _tabController,
-          children: tabDataList.map((t) => _createTab(t))
-        ),
+//        child: TabBarView(
+//          controller: _tabController,
+//          children: tabDataList.map((t) => _createTab(t))
+//        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _createTodo,
-        tooltip: 'Create',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+//      floatingActionButton: FloatingActionButton(
+//        onPressed: _createTodo,
+//        tooltip: 'Create',
+//        child: Icon(Icons.add),
+//      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
