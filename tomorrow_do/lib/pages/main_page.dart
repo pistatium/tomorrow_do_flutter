@@ -54,8 +54,7 @@ class _MainPageState extends State<MainPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
-        bottom: TabBar(
+        title: TabBar(
           unselectedLabelColor: Color.fromARGB(255, 1, 1, 1),
           labelColor: Color.fromARGB(255, 255, 255, 255),
           indicatorPadding: EdgeInsets.only(left: 18.0),
