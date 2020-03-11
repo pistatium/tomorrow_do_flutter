@@ -9,32 +9,25 @@ class TodoCreateDialog extends ModalRoute<void> {
   TodoCreateDialog(this.contents, {this.isAndroidBackEnable = true}) : super();
 
   @override
-  // TODO: implement barrierColor
-  Color get barrierColor => throw UnimplementedError();
+  Color get barrierColor => Colors.black.withOpacity(0.5);
 
   @override
-  // TODO: implement barrierDismissible
-  bool get barrierDismissible => throw UnimplementedError();
+  bool get barrierDismissible => false;
 
   @override
-  // TODO: implement barrierLabel
-  String get barrierLabel => throw UnimplementedError();
+  String get barrierLabel => null;
 
   @override
   Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
-    // TODO: implement buildPage
-    throw UnimplementedError();
+
   }
 
   @override
-  // TODO: implement maintainState
-  bool get maintainState => throw UnimplementedError();
+  bool get maintainState => true;
 
   @override
-  // TODO: implement opaque
-  bool get opaque => throw UnimplementedError();
+  bool get opaque => false;
 
   @override
-  // TODO: implement transitionDuration
-  Duration get transitionDuration => throw UnimplementedError();
+  Duration get transitionDuration => Duration(milliseconds: 100);
 }

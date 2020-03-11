@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tomorrow_do_flutter/converters/todo_converters.dart';
 import 'package:tomorrow_do_flutter/entities/todo.dart';
+import 'package:tomorrow_do_flutter/pages/todo_create_dialog.dart';
 
 final String todoDocumentName = 'todo_test';
 
@@ -42,12 +43,16 @@ class _MainPageState extends State<MainPage>
   }
 
   void _createTodo() async {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    var user = await _auth.currentUser();
-    var todo = Todo.create(user.uid, "test", "", 1, TodoStatus.TodayDo, null);
-    final newDocument =
-        Firestore.instance.collection(todoDocumentName).document();
-    newDocument.setData(todoToFirestoreMap(todo));
+    Navigator.push(context, TodoCreateDialog(Center(
+      child: Text("test")
+    ),
+    isAndroidBackEnable: true));
+//    final FirebaseAuth _auth = FirebaseAuth.instance;
+//    var user = await _auth.currentUser();
+//    var todo = Todo.create(user.uid, "test", "", 1, TodoStatus.TodayDo, null);
+//    final newDocument =
+//        Firestore.instance.collection(todoDocumentName).document();
+//    newDocument.setData(todoToFirestoreMap(todo));
   }
 
   @override
